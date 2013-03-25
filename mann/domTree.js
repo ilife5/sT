@@ -18,6 +18,9 @@
      * treeBuild(obj, ["div#rootId.rootClass[rootName]", ["div#childId.childClass", ["child#grandsonId.grandsonClass", ...]]])
      */
     function build(arr, obj) {
+        if(!arr || Object.prototype.toString.call(arr) !== "[object Array]") {
+            throw new Error('The frist arguments must be array!');
+        }
         if (obj) {
             localObj = obj;
         }

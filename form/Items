@@ -3,7 +3,7 @@
  * [表单中数组类型控件的数据层设计](https://github.com/ilife5/sT/issues/6)
  */
 
-//Constructor
+//constructor
 function Items() {
     this.items = [];
 }
@@ -19,7 +19,7 @@ Items.prototype = {
                 self = this;
             //if this.items.length < v.length
             //call this.addItem
-            v.forEach(function(index, value) {
+            v.forEach(function(value, index) {
                 if(self.items[index]) {
                     self.items[index].val(value);
                 } else {
@@ -29,7 +29,7 @@ Items.prototype = {
         } else {
             //return the value of items
             var r = [];
-            this.items.forEach(function(index, item) {
+            this.items.forEach(function(item) {
                 r.push(item.val());
             });
             return r;

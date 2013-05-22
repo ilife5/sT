@@ -4,7 +4,7 @@
  
  //表单
  function form() {
- 	this.items = {};	//用来存储form中的控件
+ 	  this.items = {};	//用来存储form中的控件
  }
  
  /**

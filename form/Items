@@ -1,3 +1,4 @@
+(function() {})(
 /**
  * 表单中子项数据格式是数组类型时的抽象解决方案，诉求和详细介绍请移步：
  * [表单中数组类型控件的数据层设计](https://github.com/ilife5/sT/issues/6)
@@ -49,3 +50,5 @@ Items.prototype = {
         this.items.splice(index, 1);
     }
 };
+
+);

@@ -4,6 +4,10 @@
     <title>affix</title>
     <meta charset="utf-8">
     <style type="text/css">
+        
+        body{
+            width:1000px;
+        }
 
         #nav{
             height: 20px;
@@ -28,9 +32,17 @@
             bottom: auto;
             top: expression(eval(document.documentElement.scrollTop));
         }
+        
+        #rightBar{
+            width : 600px;
+            position: absolute;
+            border-right: 1px red solid;
+            height: 2000px;
+        }
     </style>
 </head>
 <body>
+<div id="rightBar"></div>
 <div id="floatTop">我是一直浮动的文字</div>
 <div>
     <ul>
@@ -171,9 +183,8 @@
 <script type="text/javascript">
     var a = new Affix({
         el:$('#nav'),
-        range:[$('#nav').offset().top, function() {return $('#bottomLine').offset().top;}],
-        top:0,
-        left:50
+        range:[$('#nav').offset().top, $('#rightBar').offset().left + $('#rightBar').width(), function() {return $('#bottomLine').offset().top;}],
+        top:0
     });
 
     $(a).bind('position', function() {

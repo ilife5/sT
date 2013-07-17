@@ -45,12 +45,11 @@
     }
 
     /**
-     * 判断一个节点是否在range划定的范围内
+     * 判断一个当前页面是否在range划定的范围内
      * @param range
-     *  range的值可以为单值，判断el的top是否在range内
+     *  range的值可以为单值，判断当前滚动条的y轴值是否在range内
      *  range的值可以为一个数组，如[t, r, b, l]，分别代表了上、右、下、左边界
      *  其中range的值既可以为数字或者函数
-     * @param el
      * @return {Boolean} 当前页面是否在range区域内部
      */
     function elInRange(range) {

@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CSS Expression实现fixed定位</title>
+<style type="text/css">
+	#huge {
+		width : 1400px;
+		height: 2000px;
+		border: 1px red dashed;
+		background: orange;	
+		position: relative;
+		left : 200px;
+	}
+	#fixed {
+		position: fixed;
+		top : 20px;
+		right: 20px;
+	}
+</style>
+<!--[if IE 6]>
+<script type="text/javascript">
+function fixedHack(el) {
+	var left = 0,
+		top = 0,
+		p = el;
+	while(p = p.offsetParent) {
+		left += p.offsetLeft;
+		top += p.offsetTop;
+	}
+	el.style.left = Math.max(document.body.scrollLeft, document.documentElement.scrollLeft) - left + 20 + "px";
+	el.style.top = Math.max(document.body.scrollTop, document.documentElement.scrollTop) - top + 20 + "px";
+
+}
+</script>
+<style type="text/css">
+
+	/**
+	 * IE有一个多步的渲染进程。当你滚动或调整你的浏览器大小的时候，它将重置所有内容并重画页面，这
+	 * 个时候它就会重新处理css表达式。这会引起一个丑陋的“振动”bug，在此处固定位置的元素需要调整以
+	 * 跟上你的(页面的)滚动，于是就会“跳动”。
+	 * 解决此问题的技巧就是使用background-attachment:fixed为body或html元素添加一个background-
+	 * image。这就会强制页面在重画之前先处理CSS。因为是在重画之前处理CSS，它也就会同样在重画之前首
+	 * 先处理你的CSS表达式。这将让你实现完美的平滑的固定位置元素！
+	 */
+	body{
+	    background-image:url(about:blank); /* for IE6 */ 
+	    background-attachment:fixed; /*必须*/
+	}
+
+	#fixed {
+		position: absolute;
+		fixedHack: expression(fixedHack(this)); 
+	}
+</style>
+<![endif]-->
+
+</head>
+<body>
+	<div id="huge">
+		<div id="fixed">{position : fixed}</div>
+	</div>
+</body>
+</html>

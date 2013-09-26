@@ -144,6 +144,8 @@ function Affix(options) {
     me.lastStyle = {};
 }
 
+Affix.getValue = getValue;
+
 $.extend(Affix.prototype, {
     el:null, //目标节点
     everyTime:false, //是否每次动态计算位置

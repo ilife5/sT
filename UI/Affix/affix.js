@@ -254,7 +254,7 @@
 
         me.setPositionProxy = $.proxy(me.setPosition, me);
 
-        $win.on('scroll resize', function () {
+        $win.on('scroll.affix resize.affix', function () {
             me.scrollCount++;
 
             if(isIE6 && me.scrollCount % 3 === 1) {

@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CSS Hack实现fixed定位</title>
+<style type="text/css">
+	#huge {
+		width : 400px;
+		height: 2000px;
+		border: 1px red dashed;
+		background: orange;	
+	}
+	#fixed {
+		position: fixed;
+		top : 20px;
+		right: 20px;
+	}
+</style>
+<!--[if IE 6]>
+<style type="text/css">
+	#fixed {
+		position: absolute;
+		top : 20px;
+		right: 20px;
+	}
+	html{overflow:hidden;}
+	body {
+		overflow: auto;
+		height: 100%;
+		margin:0;
+		padding:0;
+	}
+</style>
+<![endif]-->
+
+</head>
+<body>
+	<div id="fixed">{position : fixed}</div>
+	<div id="huge"></div>
+</body>
+</html>

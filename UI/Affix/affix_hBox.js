@@ -112,6 +112,8 @@
             }
         });
 
+        affix.resetFloatPosition = resetFloatPosition;
+
         $(affix).bind('outOfWork', function() {
             resetFloatPosition();
         });

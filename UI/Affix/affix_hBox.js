@@ -55,16 +55,32 @@
             el:$floatArea,
             heightHack:true,
             range:[rangeTop, null, function() {
-                return getValue(rangeBottom) + $(window).height() - $floatArea.outerHeight();
+                var foh = $floatArea.outerHeight();
+                if(Affix.isIE7) {
+                    foh  = foh * (Affix.GetZoomFactor() || 0.1);
+                }
+                return getValue(rangeBottom) + $(window).height() - foh ;
             }],
             top:top,
             everyTime:true,
-            left:left,
+            left:function() {
+                var bl = $floatArea.css('border-left'),
+                    n = bl && bl.substring(0, bl.indexOf('px'));
+                if(n && n > 0) {
+                    if(Affix.isIE7) {
+                        n = n * (Affix.GetZoomFactor() || 0.1);
+                    }
+                    return getValue(left) + n;
+                }
+            },
             recoveryStyle:{
                 top:function() {
                     var scrollTop = $(document).scrollTop(),
                         floatAreaH = $floatArea.outerHeight(),
                         bottom = getValue(rangeBottom);
+                    if(Affix.isIE7) {
+                        floatAreaH  = floatAreaH * (Affix.GetZoomFactor() || 0.1);
+                    }
                     if(scrollTop + floatAreaH >= bottom && check()) {
                         return bottom - getValue(rangeTop) - floatAreaH;
                     } else {

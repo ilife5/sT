@@ -19,6 +19,7 @@
             },
             floatArea = opts.floatArea,
             $floatArea = $(floatArea),
+            oriTop = $floatArea.css('top').substring(0, $floatArea.css('top').indexOf('px')),
             affix;
 
         //rangeBottom可传el节点
@@ -50,6 +51,22 @@
             };
         }
 
+        function resetFloatPosition() {
+            var scrollTop = $(document).scrollTop(),
+                floatAreaH = $floatArea.outerHeight(),
+                bottom = getValue(rangeBottom),
+                top;
+            if(Affix.isIE7) {
+                floatAreaH  = floatAreaH * (Affix.GetZoomFactor() || 0.1);
+            }
+            if(scrollTop + floatAreaH >= bottom && check()) {
+                top = bottom - getValue(rangeTop) - floatAreaH;
+            } else {
+                top = oriTop;
+            }
+
+            $floatArea.css('top', top);
+        }
 
         affix = new Affix({
             el:$floatArea,
@@ -64,14 +81,15 @@
             top:top,
             everyTime:true,
             left:function() {
-                var bl = $floatArea.css('border-left'),
+                var bl = $floatArea.css('borderLeftWidth'),
                     n = bl && bl.substring(0, bl.indexOf('px'));
                 if(n && n > 0) {
                     if(Affix.isIE7) {
                         n = n * (Affix.GetZoomFactor() || 0.1);
                     }
-                    return getValue(left) + n;
+                    return getValue(left) + n * 1;
                 }
+                return getValue(left);
             },
             recoveryStyle:{
                 top:function() {
@@ -84,10 +102,14 @@
                     if(scrollTop + floatAreaH >= bottom && check()) {
                         return bottom - getValue(rangeTop) - floatAreaH;
                     } else {
-                        return 0;
+                        return oriTop;
                     }
                 }
             }
+        });
+
+        $(affix).bind('outOfWork', function() {
+            resetFloatPosition();
         });
 
         return affix;

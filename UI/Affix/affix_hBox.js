@@ -6,7 +6,12 @@
     var getValue = Affix.getValue;
 
     /**
-     * @param opts 其中rangeTop与rangeBottom为必传项
+     * @param opts
+     *  floatArea : 浮动的节点
+     *  top : 浮动时距视口高度
+     *  left : 浮动时节点左边距的参考节点
+     *  rangeTop : 浮动时的上边界参考节点(必须)
+     *  rangeBottom : 浮动时的下边界参考节点(必须)
      * @method
      */
     function affix_hBox(opts) {
@@ -78,8 +83,7 @@
             } else {
                 top = oriTop;
             }
-
-            $floatArea.css('top', top);
+            $floatArea.css('top', top*1);
         }
 
         affix = new Affix({

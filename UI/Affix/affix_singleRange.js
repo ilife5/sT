@@ -1,5 +1,14 @@
 ;(function($, exports, Affix, undefined) {
 
+    /**
+     * 单边界吸顶效果
+     * @param opts
+     *  el :  浮动节点
+     *  top : 浮动时距视口高度
+     *  left : 浮动时参考的左边定位节点
+     *  range : 浮动参考上边界
+     * @return {*}
+     */
     function affix_singleRange(opts) {
         var top = opts.top,
             left = opts.left,

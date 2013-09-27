@@ -80,17 +80,7 @@
             }],
             top:top,
             everyTime:true,
-            left:function() {
-                var bl = $floatArea.css('borderLeftWidth'),
-                    n = bl && bl.substring(0, bl.indexOf('px'));
-                if(n && n > 0) {
-                    if(Affix.isIE7) {
-                        n = n * (Affix.GetZoomFactor() || 0.1);
-                    }
-                    return getValue(left) + n * 1;
-                }
-                return getValue(left);
-            },
+            left:left,
             recoveryStyle:{
                 top:function() {
                     var scrollTop = $(document).scrollTop(),

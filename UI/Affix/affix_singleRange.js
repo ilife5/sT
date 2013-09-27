@@ -6,6 +6,16 @@
             range = opts.range,
             $el = $(opts.el);
 
+        //left可传el节点
+        if(left) {
+            if($(left).get(0).nodeType) {
+                var $left = $(left);
+                left = function () {
+                    return $left.offset().left - $(document).scrollLeft();
+                };
+            }
+        }
+
         var affix = new Affix({
             el : $el,
             top : top,

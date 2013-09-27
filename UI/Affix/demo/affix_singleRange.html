@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>纵向范围滚动吸顶效果</title>
+    <title>固定top值的吸顶效果</title>
     <meta charset="utf-8">
     <style type="text/css">
         html, body, div {margin: 0; padding: 0; border: none;}
@@ -62,10 +62,7 @@
             $left = $('#left');
     affix_singleRange({
         top : 0,
-        left : function() {
-            var left = $(document).scrollLeft();
-            return $right.offset().left - left;
-        },
+        left : $right,
         range : $right.offset().top,
         el : $floatArea
     });

@@ -6,7 +6,7 @@
     var getValue = Affix.getValue;
 
     /**
-     * @param opts
+     * @param opts 其中rangeTop与rangeBottom为必传项
      * @method
      */
     function affix_hBox(opts) {
@@ -21,6 +21,10 @@
             $floatArea = $(floatArea),
             oriTop = $floatArea.css('top').substring(0, $floatArea.css('top').indexOf('px')),
             affix;
+
+        if(!rangeTop || !rangeBottom) {
+            return;
+        }
 
         //rangeBottom可传el节点
         if($(rangeBottom).get(0).nodeType) {
@@ -49,6 +53,16 @@
             rangeTop = function () {
                 return $rangeTop.offset().top;
             };
+        }
+
+        //left可传el节点
+        if(left) {
+            if($(left).get(0).nodeType) {
+                var $left = $(left);
+                left = function () {
+                    return $left.offset().left - $(document).scrollLeft();
+                };
+            }
         }
 
         function resetFloatPosition() {

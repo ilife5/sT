@@ -63,10 +63,7 @@
     var affix = affix_hBox({
         floatArea : $floatArea,
         top : 0,
-        left : function() {
-            var left = $(document).scrollLeft();
-            return $right.offset().left - left;
-        },
+        left : $right,
         rangeTop : $right,
         rangeBottom : $left
     }).render().setPosition();

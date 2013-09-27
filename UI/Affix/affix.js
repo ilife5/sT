@@ -102,6 +102,7 @@
             return compare(sTop, range[0]) && compare(range[1], right) &&
                 compare(range[2], sTop + $win.height()) && compare(sLeft, range[3]);
         } else {
+            range = [range];
             return compare(sTop, range[0]);
         }
     }

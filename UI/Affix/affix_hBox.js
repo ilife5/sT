@@ -21,6 +21,36 @@
             $floatArea = $(floatArea),
             affix;
 
+        //rangeBottom可传el节点
+        if($(rangeBottom).get(0).nodeType) {
+            var $BottomEl = $(rangeBottom);
+            rangeBottom = function () {
+                if(Affix.isIE7) {
+                    var _factor = Affix.GetZoomFactor() || 0.1;
+                    return $BottomEl.offset().top + $BottomEl.outerHeight() * _factor;
+                } else {
+                    return $BottomEl.offset().top + $BottomEl.outerHeight();
+                }
+            };
+        } else {
+            if(Affix.isIE7) {
+                var rb = rangeBottom,
+                    _factor = Affix.GetZoomFactor() || 0.1;
+                rangeBottom = function() {
+                    return getValue(rb) * _factor;
+                }
+            }
+        }
+
+        //rangeTop可传el节点
+        if($(rangeTop).get(0).nodeType) {
+            var $rangeTop = $(rangeTop);
+            rangeTop = function () {
+                return $rangeTop.offset().top;
+            };
+        }
+
+
         affix = new Affix({
             el:$floatArea,
             heightHack:true,

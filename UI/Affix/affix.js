@@ -146,6 +146,9 @@
     }
 
     Affix.getValue = getValue;
+    Affix.GetZoomFactor = GetZoomFactor;
+    Affix.isIE7 = isIE7;
+    Affix.isIE6 = isIE6;
 
     $.extend(Affix.prototype, {
         el:null, //目标节点

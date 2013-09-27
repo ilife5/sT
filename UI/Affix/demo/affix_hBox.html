@@ -67,12 +67,8 @@
             var left = $(document).scrollLeft();
             return $right.offset().left - left;
         },
-        rangeTop : function () {
-            return $right.offset().top;
-        },
-        rangeBottom : function() {
-            return $left.offset().top + $left.outerHeight();
-        }
+        rangeTop : $right,
+        rangeBottom : $left
     });
     affix.render();
 </script>

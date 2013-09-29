@@ -26,9 +26,9 @@
      * @param d 默认值
      * @example
      * var obj = {
- *      a : 1,
- *      b : function () {return 1}
- *  };
+     *      a : 1,
+     *      b : function () {return 1}
+     *  };
      *  getValue(obj.a);    //1
      *  getValue(obj.b);    //1
      *  getValue(obj.a, 2); //2
@@ -50,26 +50,32 @@
 
 // handle multiple browsers for requestAnimationFrame()
     var requestAFrame = (function () {
-        return window.requestAnimationFrame ||
+        var func = window.requestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
             window.mozRequestAnimationFrame ||
-            window.oRequestAnimationFrame ||
-            // if all else fails, use setTimeout
-            function (callback) {
+            window.oRequestAnimationFrame;
+
+        if(!func) {
+            func = function(callback) {
                 return window.setTimeout(callback, 1000 / 60); // shoot for 60 fps
             };
+
+            func.noSupportAnimationFrame = true;
+        }
+
+        return func;
     })();
 
 // handle multiple browsers for cancelAnimationFrame()
-    /*var cancelAFrame = (function () {
-     return window.cancelAnimationFrame ||
-     window.webkitCancelAnimationFrame ||
-     window.mozCancelAnimationFrame ||
-     window.oCancelAnimationFrame ||
-     function (id) {
-     window.clearTimeout(id);
-     };
-     })();*/
+    var cancelAFrame = (function () {
+        return window.cancelAnimationFrame ||
+            window.webkitCancelAnimationFrame ||
+            window.mozCancelAnimationFrame ||
+            window.oCancelAnimationFrame ||
+            function (id) {
+                window.clearTimeout(id);
+            };
+    })();
 
     function GetZoomFactor () {
         var factor = 1;
@@ -243,7 +249,7 @@
     Affix.prototype.render = function () {
         var me = this,
             $win = $(window),
-            INTERVAL = 1000 / 30;
+            renderFunc;
 
         me.onAnimation = false;
         me.animationId = null;
@@ -258,29 +264,32 @@
 
         me.setPositionProxy = $.proxy(me.setPosition, me);
 
-        $win.on('scroll.affix resize.affix', function () {
-            me.scrollCount++;
-
-            if(isIE6 && me.scrollCount % 3 === 1) {
-                me.setPositionProxy();
-            } else {
-                if(me.alternation) {
-                    me.alternation = false;
-                } else {
-                    me.alternation = true;
-                    requestAFrame(me.setPositionProxy);
+        //由于在不支持requestAnimationFrame的浏览器中，由于渲染的不同步，导致页面产生抖动
+        //将效果改为不连续的定位
+        if(requestAFrame.noSupportAnimationFrame) {
+            renderFunc = function() {
+                if(me.endAnimation) {
+                    cancelAFrame(me.endAnimation);
+                    me.endAnimation = null;
                 }
-            }
 
-            if(me.endAnimation) {
-                clearTimeout(me.endAnimation);
-            }
-            me.endAnimation = setTimeout(me.setPositionProxy, INTERVAL);
+                me.endAnimation = requestAFrame(function() {
+                    me.setPosition();
+                });
 
+            };
+        } else {
+            renderFunc = function() {
+                if(!me.onAnimation) {
+                    me.onAnimation = true;
+                    me.animationId = requestAFrame(me.setPositionProxy);
+                }
+            };
+        }
 
-        });
+        $win.on('scroll.affix resize.affix', renderFunc);
 
-        me.setPositionProxy();
+        me.setPosition();
         return me;
     };
 

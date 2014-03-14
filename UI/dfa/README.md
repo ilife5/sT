@@ -28,7 +28,7 @@ dfaHAHA是一款羽毛级的js dfa实现方案
 
 ## rules
 
-规则集，触发dfa改变的外力。
+规则，自动机的输入，同时也是触发dfa改变的外力。
 
 ```javascript
 

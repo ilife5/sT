@@ -2,7 +2,7 @@ function Camel( elem ) {
 
     var me = this;
 
-    me.statusSet = [1,2,3,4,5,6,7];
+    me.statusSet = [1,2,3,4,5,6,7,8,9,10,11];
 
     this.dfa = (function() {
         var map = {};
@@ -45,7 +45,7 @@ function Camel( elem ) {
             me = this;
         setInterval(function() {
             me.proxy((++num)%me.statusSet.length + 1);
-        }, 200);
+        }, 300);
     };
 
     this.setStatus(1);

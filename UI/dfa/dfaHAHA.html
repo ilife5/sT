@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body>
+
+</body>
+
+<script type="text/javascript" src="dfaHAHA.js"></script>
+<script type="text/javascript">
+    function numberInterval() {
+        this.dfa = {
+            1: function(status) {
+                switch( status ) {
+                    case 2:
+                        this.setStatus(status);
+                        break;
+                    default:
+                        this.setStatus(1);
+                }
+
+            },
+            2: function( status ) {
+                switch( status ) {
+                    case 3:
+                        this.setStatus(status);
+                        break;
+                    default:
+                        this.setStatus(2);
+                }
+            },
+            3: function( status ) {
+                switch( status ) {
+                    case 1:
+                        this.setStatus(status);
+                        break;
+                    default:
+                        this.setStatus(3);
+                }
+            }
+        };
+        this.UI = {
+            1: function() {
+                console.log(1);
+            },
+            2: function() {
+                console.log(2);
+            },
+            3: function() {
+                console.log(3);
+            }
+        };
+        this.rules = function() {
+            var num = 0,
+                    me = this;
+            setInterval(function() {
+                me.proxy((++num)%3 + 1);
+            }, 2000);
+        };
+
+        this.setStatus(1);
+        this.initialize();
+    }
+
+    numberInterval.prototype = new dfaHAHA();
+
+    new numberInterval();
+</script>
+</html>

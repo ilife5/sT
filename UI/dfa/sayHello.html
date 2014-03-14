@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<fieldset style="padding: 30px;">
+    <legend>使用事件跳转作为dfa的规则</legend>
+
+    <div id="text"></div>
+    <div>
+        <img id="food" width="128" height="128"/>
+    </div>
+    <button type="button" time="morning" class="triggers">morning</button>
+    <button type="button" time="daytime" class="triggers">daytime</button>
+    <button type="button" time="night" class="triggers">night</button>
+    <br>
+
+</fieldset>
+
+</body>
+<script type="text/javascript" src="./dfaHAHA.js"></script>
+<script type="text/javascript">
+    function People( elem, triggers, food ) {
+
+        var me = this;
+
+        me.statusSet = ['morning', 'daytime', 'night'];
+
+        me.dfa = (function() {
+            var map = {};
+
+            me.statusSet.forEach(function(status) {
+                map[status] = me.sayHello;
+            });
+
+        })();
+        me.UI = (function() {
+            var map = {};
+
+            me.statusSet.forEach(function(status) {
+                map[status] = function() {
+                    elem.innerHTML = me.greet[this.getStatus()];
+                    food.src = './source/' + me.food[this.getStatus()] + '.png';
+                };
+            });
+
+            return map;
+
+        })();
+        me.rules = function() {
+            for(var i = 0, len = triggers.length; i < len; i++) {
+                triggers[i].addEventListener('click', function(){
+                    me.setStatus(this.getAttribute('time'));
+                });
+            }
+        };
+
+        me.setStatus('morning');
+        me.initialize();
+    }
+
+    People.prototype = new dfaHAHA();
+
+    People.prototype.sayHello = function(type) {
+
+        var s = this.getStatus(),
+                me = this;
+
+        switch (type) {
+            case 'morning':
+            case 'daytime':
+            case 'night':
+                me.setStatus(type);
+                break;
+            default:
+                me.setStatus(s);
+                break;
+        }
+    };
+
+    People.prototype.greet = {
+        'morning': '早上好',
+        'daytime': '你好呀',
+        'night': '晚安，呵呵'
+    };
+
+    People.prototype.food = {
+        'morning': 'mini_breakfast',
+        'daytime': 'coffee',
+        'night': 'cookies'
+    };
+
+    new People(document.getElementById('text'), document.getElementsByClassName('triggers'), document.getElementById('food'));
+</script>
+</html>

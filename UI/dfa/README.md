@@ -4,7 +4,7 @@ dfaHAHA是一款羽毛级的js dfa实现方案
 
 ## Deterministic finite automaton
 
-有穷确定状态自动机，给我状态集，规则，开始状态， 然后我就知道该干嘛了：）
+有穷确定状态自动机，给我状态集([s0, s1, s2])，规则(下图)，开始状态(s0)， 然后我就知道该干嘛了：）
 
 ![dfa](https://raw.githubusercontent.com/ilife5/sT/master/UI/dfa/source/640px-DFA_example_multiplies_of_3.svg.png)
 

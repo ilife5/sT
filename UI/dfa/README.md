@@ -73,9 +73,11 @@ setInterval(function() {
 function Camel( elem ) {
 
     var me = this;
-
+    
+    //状态集合
     me.statusSet = [1,2,3,4,5,6,7,8,9,10,11];
 
+    //状态机
     this.dfa = (function() {
         var map = {};
 
@@ -98,6 +100,7 @@ function Camel( elem ) {
         return map;
     })();
 
+    //UI
     this.UI = (function() {
         var map = {};
 
@@ -112,6 +115,7 @@ function Camel( elem ) {
         return map;
     })();
 
+    //输入规则
     this.rules = function() {
         var num = 0,
             me = this;

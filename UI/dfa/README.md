@@ -30,6 +30,17 @@ dfaHAHA是一款羽毛级的js dfa实现方案
 
 规则集，触发dfa改变的外力。
 
+```javascript
+
+var num = 0,
+    me = this;
+    
+setInterval(function() {
+    me.proxy((++num)%2);
+}, INTERVAL);
+
+```
+
 ## UI
 
 组件在每个状态下的UI显示，类似各种MV**框架中的V。

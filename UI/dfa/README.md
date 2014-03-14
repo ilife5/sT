@@ -12,6 +12,20 @@ dfaHAHA是一款羽毛级的js dfa实现方案
 
 状态机，根据当前状态和条件，决策下一个状态。
 
+```javascript
+{
+    s0: function( status ) {
+        switch(status) {
+            case 1:
+                this.setStatus('s1');
+                break;
+            case 0:
+                this.setStatus('s0');
+        }
+    }
+}
+```
+
 ## rules
 
 规则集，触发dfa改变的外力。

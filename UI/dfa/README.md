@@ -4,13 +4,21 @@ dfaHAHA是一款羽毛级的js dfa实现方案
 
 ## Deterministic finite automaton
 
-有穷确定状态自动机，给我状态集([s0, s1, s2])，规则(下图)，开始状态(s0)， 然后我就知道该干嘛了：）
+有穷确定状态自动机，给我有穷状态集([s0, s1, s2])，有穷的输入符号集合([0,1])，转移函数，开始状态(s0)，一个终结状态或接受状态的集合。然后我就知道该干嘛了：）
 
 ![dfa](https://raw.githubusercontent.com/ilife5/sT/master/UI/dfa/source/640px-DFA_example_multiplies_of_3.svg.png)
 
+## statusSet
+
+有穷状态集合
+
+```javascript
+['s0', 's1', 's2']
+```
+
 ## dfa
 
-状态机，根据当前状态和条件，决策下一个状态。
+状态机(转移函数)，根据当前状态和条件，决策下一个状态。
 
 ```javascript
 {
@@ -43,7 +51,7 @@ setInterval(function() {
 
 ## UI
 
-组件在每个状态下的UI显示，类似各种MV**框架中的V。
+组件在每个状态下的UI显示，类似各种MV**框架中的View。
 
 ```javascript
 {
